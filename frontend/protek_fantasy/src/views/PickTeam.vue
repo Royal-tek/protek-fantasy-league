@@ -18,7 +18,7 @@
                     <p v-if="formations.errorMsg" class="py-3 formationError text-center" >{{ formations.errorMsg }}</p>
                 </div>
 
-                <div class="player-select-holder">
+                <div class="player-select-holder" v-if="formations.selectFormation">
                     <div class="position-holder">
                         <p class="me-2 text-white">POSITION:</p>
                         <select class="form-select shadow-none" v-model="selectedPosition" @change="filterPosition(selectedPosition)">
@@ -49,12 +49,12 @@
                     
                 </div>
                 <div class="my-5">
-                    <button class="btn" style="background-color: #279843; color: #fff; margin: 0 auto; display: block;">Save Team</button>
+                    <button class="btn" style="background-color: #279843; color: #fff; margin: 0 auto; display: block;" v-if="formations.selectFormation">Save Team</button>
                     <!-- {{  selectedPlayers }} -->
                     <!-- {{ selectedPosition }} -->
                     <!-- {{ selectedPlayers }} -->
-                        {{ formations.defenders.players}}
-                    {{ formations.goalkeeper }}
+                        <!-- {{ selectedPlayers }} -->
+                    <!-- {{ formations.goalkeeper }} -->
                     <!-- {{ formations.attackers.attackersValue }} -->
                     <!-- {{ selectedPosition }} -->
                 </div>
@@ -87,7 +87,7 @@
 
                     <!-- DEFENDERS ROW -->
                     <div class="row  player-row">
-                        <div class="col text-center pos"  v-for="(player, index) in formations.defenders.defendersValue" :key="player.id">
+                        <div class="col text-center pos"  v-for=" (player, index) in formations.defenders.defendersValue" :key="player.id">
                             <div class="player mt-3 pt-2">    
                                 <div class="player-img mb-1" >
                                     <span class="remove-player">
@@ -96,11 +96,11 @@
                                     <img src="../../public/black.png" alt="" @click="filterPosition('defenders')">
                                 </div>
                                 <div class="player-info">
-                                    {{ formations.defenders.players[index]}}
-                                    <!-- <span>{{ formations.defenders.players[index]}}</span> -->
+                                    
+                                    <span>{{ formations.defenders.players[index] ? formations.defenders.players[index].name : 'Name'}}</span>
                                 </div>
                                 <div class="player-team">
-                                    <!-- <span>{{formations.defenders.team}}</span> -->
+                                    <span>{{ formations.defenders.players[index] ? formations.defenders.players[index].team : 'Team'}}</span>
                                 </div>
                             </div>
 
@@ -111,7 +111,7 @@
 
                     <!-- MIDFIELDERS ROW -->
                     <div class="row  player-row">
-                        <div class="col text-center pos"  v-for="player in formations.midfielders.midfieldersValue" :key="player.id">
+                        <div class="col text-center pos"  v-for="(player, index) in formations.midfielders.midfieldersValue" :key="player.id">
                             <div class="player mt-3 pt-2">    
                                 <div class="player-img mb-1" @click="filterPosition('midfielders')">
                                     <span class="remove-player">
@@ -120,10 +120,10 @@
                                     <img src="../../public/black.png" alt="">
                                 </div>
                                 <div class="player-info">
-                                    <span>Name</span>
+                                    <span>{{ formations.midfielders.players[index] ? formations.midfielders.players[index].name : 'Name'}}</span>
                                 </div>
                                 <div class="player-team">
-                                    <span>Position</span>
+                                    <span>{{ formations.midfielders.players[index] ? formations.midfielders.players[index].team : 'Team'}}</span>
                                 </div>
                             </div>
 
@@ -134,7 +134,7 @@
 
                     <!-- ATTACKERS ROW -->
                     <div class="row player-row">
-                        <div class="col text-center pos"  v-for="player in formations.attackers.attackersValue" :key="player.id">
+                        <div class="col text-center pos"  v-for=" (player, index) in formations.attackers.attackersValue" :key="player.id">
                             <div class="player mt-3 pt-2">    
                                 <div class="player-img mb-1" @click="filterPosition('attackers')">
                                     <span class="remove-player">
@@ -143,7 +143,7 @@
                                     <img src="../../public/black.png" alt="">
                                 </div>
                                 <div class="player-info">
-                                    <span>Name</span>
+                                    <span>{{ formations.attackers.players[index] ? formations.attackers.players[index].name : 'Name'}}</span>
                                 </div>
                                 <div class="player-team">
                                     <span>Position</span>
@@ -178,23 +178,23 @@ export default {
             players:[
                 
                 {firstname : 'zoe', lastname : 'Afonime', team : 'CSC', position : 'goalkeepers'},
-                {firstname : 'Royal', lastname : 'Afonime', team : 'CSC', position : 'midfielders'},
-                {firstname : 'Noble', lastname : 'Afonime', team : 'CSC', position : 'attackers'},
+                {firstname : 'clinton', lastname : 'Afonime', team : 'CSC', position : 'midfielders'},
+                {firstname : 'Noble', lastname : 'Afonime', team : 'SOS', position : 'attackers'},
                 {firstname : 'Excel', lastname : 'Afonime', team : 'CSC', position : 'defenders'},
-                {firstname : 'zoe', lastname : 'Afonime', team : 'CSC', position : 'goalkeepers'},
+                {firstname : 'zoe', lastname : 'Afonime', team : 'SOS', position : 'goalkeepers'},
                 {firstname : 'Royal', lastname : 'Afonime', team : 'CSC', position : 'midfielders'},
-                {firstname : 'Noble', lastname : 'Afonime', team : 'CSC', position : 'attackers'},
+                {firstname : 'Majek', lastname : 'Afonime', team : 'SOS', position : 'attackers'},
                 {firstname : 'jigah', lastname : 'Afonime', team : 'CSC', position : 'defenders'},
-                {firstname : 'zoe', lastname : 'Afonime', team : 'CSC', position : 'goalkeepers'},
-                {firstname : 'Royal', lastname : 'Afonime', team : 'CSC', position : 'midfielders'},
+                {firstname : 'Mikini', lastname : 'Afonime', team : 'CSC', position : 'goalkeepers'},
+                {firstname : 'Royal', lastname : 'Afonime', team : 'MECH', position : 'midfielders'},
                 {firstname : 'Noble', lastname : 'Afonime', team : 'CSC', position : 'attackers'},
-                {firstname : 'david', lastname : 'Afonime', team : 'CSC', position : 'defenders'},
+                {firstname : 'david', lastname : 'Afonime', team : 'MECH', position : 'defenders'},
                 {firstname : 'zoe', lastname : 'Afonime', team : 'CSC', position : 'goalkeepers'},
-                {firstname : 'Royal', lastname : 'Afonime', team : 'CSC', position : 'midfielders'},
-                {firstname : 'Noble', lastname : 'Afonime', team : 'CSC', position : 'attackers'},
+                {firstname : 'Ovo', lastname : 'Afonime', team : 'CSC', position : 'midfielders'},
+                {firstname : 'Noble', lastname : 'Afonime', team : 'MECH', position : 'attackers'},
                 {firstname : 'edwin', lastname : 'Afonime', team : 'CSC', position : 'defenders'},
                 {firstname : 'zoe', lastname : 'Afonime', team : 'CSC', position : 'goalkeepers'},
-                {firstname : 'Royal', lastname : 'Afonime', team : 'CSC', position : 'midfielders'},
+                {firstname : 'timawus', lastname : 'Afonime', team : 'MECH', position : 'midfielders'},
                 {firstname : 'Noble', lastname : 'Afonime', team : 'CSC', position : 'attackers'},
                 {firstname : 'godsent', lastname : 'Afonime', team : 'CSC', position : 'defenders'}
 
@@ -312,7 +312,7 @@ export default {
                     }
                     else{
                         this.formations.defenders.players.push({
-                            firstname : player.firstname,
+                            name : player.firstname,
                             team : player.team
                         })
                         this.selectedPlayers.defenders.push(player)
@@ -320,15 +320,67 @@ export default {
                     }
                 }
 
-
                 if(player.position === 'midfielders'){
-                    this.selectedPlayers.midfielders.push(player)
+                    if(this.formations.midfielders.players.length >= this.formations.midfielders.midfieldersValue){
+                        this.formations.error = true
+                        this.formations.errorMsg = 'Max amount of midfielders position in team already'
+                        
+                setTimeout(()=>{
+                    this.formations.error = false
+                    this.formations.errorMsg = ''
+                },3000)
+                    }
+                    else{
+                        this.formations.midfielders.players.push({
+                            name : player.firstname,
+                            team : player.team
+                        })
+                        this.selectedPlayers.midfielders.push(player)
+                        
+                    }
                 }
+
                 if(player.position === 'attackers'){
-                    this.selectedPlayers.attackers.push(player)
+                    if(this.formations.attackers.players.length >= this.formations.attackers.attackersValue){
+                        this.formations.error = true
+                        this.formations.errorMsg = 'Max amount of attackers position in team already'
+                        
+                setTimeout(()=>{
+                    this.formations.error = false
+                    this.formations.errorMsg = ''
+                },3000)
+                    }
+                    else{
+                        this.formations.attackers.players.push({
+                            name : player.firstname,
+                            team : player.team
+                        })
+                        this.selectedPlayers.attackers.push(player)
+                        
+                    }
                 }
+
+                let combinedArray = [
+                    ...this.selectedPlayers.defenders,
+                    ...this.selectedPlayers.midfielders,
+                    ...this.selectedPlayers.attackers,
+                    this.selectedPlayers.goalkeepers
+                ]
+              console.log(combinedArray)
+              const countPlayers = (value, arr)=>
+                arr.filter((x)=> x.team === value).length
+              
+              if(countPlayers(player.team, combinedArray) > 3){
+                this.formations.error = true
+                        this.formations.errorMsg = 'Not more than 3 players from a team'
+                        
+                setTimeout(()=>{
+                    this.formations.error = false
+                    this.formations.errorMsg = ''
+                },3000)
+              }
+
             }
-            
 
         },
         filterPosition(position){
@@ -345,7 +397,10 @@ export default {
             
 
         }
-    }
+
+        },
+        
+    
 
 }
 </script>

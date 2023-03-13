@@ -1035,16 +1035,19 @@ Main Slides Area CSS
 /*================================================
 Main Banner Area CSS
 =================================================*/
-@media (max-width:900px){
+@media (max-width:1000px){
   .main-banner-image{
     display:none;
   }
   .main-banner-content{
     padding: 40px 0;
   }
+  .main-banner-area{
+    background-image: url("../images/3.png") !important; 
+  }
 }
 .main-banner-area {
-  background-image: url("../images/main-banner/banner-bg.jpg");
+  background-image: url("../images/landing.jpg");
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -1062,7 +1065,7 @@ Main Banner Area CSS
   top: 0;
   height: 100%;
   width: 100%;
-  background-color: #001d34;
+  background-color: #08230d;
   z-index: -1;
   opacity: .77;
 }

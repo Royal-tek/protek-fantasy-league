@@ -4,11 +4,11 @@
             <footer class="footer-area pt-100 pb-75">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-3 col-sm-6">
+                    <div class="col-lg-6 col-sm-6">
                         <div class="single-footer-widget">
                             <div class="widget-logo">
                                 <a href="index.html">
-                                    <img src="pflogo.png" alt="image">
+                                    <img src="pflogo.png" class="img-fluid" alt="image">
                                 </a>
                             </div>
                             <p>Build your fantasy team and compete against other players on the game and stand a chance to win amazing prizes.</p>
@@ -29,19 +29,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="single-footer-widget">
-                            <h3>Follow Us</h3>
-
-                            <ul class="footer-links-list">
-                                <li><a href="https://www.facebook.com/" target="_blank">Facebook</a></li>
-                                <li><a href="https://twitter.com/?lang=en" target="_blank">Twitter</a></li>
-                                <li><a href="https://www.instagram.com/" target="_blank">Instagram</a></li>
-                                <li><a href="https://www.linkedin.com/" target="_blank">Linkedin</a></li>
-                                <li><a href="https://www.youtube.com/" target="_blank">Youtube</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                
 
                     <div class="col-lg-3 col-sm-6">
                         <div class="single-footer-widget">
@@ -101,7 +89,7 @@
                         <div class="col-lg-6 col-md-6">
                             <p>
                                 Copyright © 2021 Plonk All Rights Reserved by
-                                <a href="https://envytheme.com/" target="_blank">
+                                <a href="https://www.instagram.com/heis__royal/" target="_blank">
                                     Protek
                                 </a>
                             </p>
