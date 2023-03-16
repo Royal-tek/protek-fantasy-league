@@ -7,18 +7,60 @@ const TeamSchema = new Schema({
         ref : 'User'
     },
     week : {
-        type : Number
+        type : Number,
+        default : 1
     },
+    
     players : {
-        captain : {
-            type : String
-        },
         goalkeeper : {
-            type : String
+            player : {
+                type : mongoose.Schema.Types.ObjectId,
+                ref : 'Player'
+            }, 
+            isCaptain : {
+                type : Boolean,
+                default : false
+            }
         },
-        defenders : [],
-        midfielders : [],
-        attackers : [],
+
+        defenders : [
+            {
+                player : {
+                    type : mongoose.Schema.Types.ObjectId,
+                    ref : 'Player'
+                }, 
+                isCaptain : {
+                    type : Boolean,
+                    default : false
+                }
+            }
+        ],
+
+        midfielders : [
+            {
+                player : {
+                    type : mongoose.Schema.Types.ObjectId,
+                    ref : 'Player'
+                }, 
+                isCaptain : {
+                    type : Boolean,
+                    default : false
+                }
+            }
+        ],
+        
+        attackers : [
+            {
+                player : {
+                    type : mongoose.Schema.Types.ObjectId,
+                    ref : 'Player'
+                }, 
+                isCaptain : {
+                    type : Boolean,
+                    default : false
+                }
+            }
+        ],
     },
     weekly_points : {
         type : Number,

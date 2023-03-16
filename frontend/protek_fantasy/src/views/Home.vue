@@ -20,7 +20,7 @@
 
                     <div class="col-lg-5 col-md-12">
                         <div class="main-banner-image wow fadeInUp" data-wow-delay="300ms" data-wow-duration="2000ms">
-                            <img src="assets/images/4.png" alt="image">
+                            <img src="assets/images/new4.png" alt="image">
                         </div>
                     </div>
                 </div>

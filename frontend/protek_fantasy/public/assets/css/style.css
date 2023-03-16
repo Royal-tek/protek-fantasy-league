@@ -879,27 +879,6 @@ Navbar Area CSS
   }
 }
 
-/*================================================
-Main Slides Area CSS
-=================================================*/
-.main-slides-item {
-  background-image: url("../images/main-slides/slides-bg-1.jpg");
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  position: relative;
-  z-index: 1;
-  padding-top: 175px;
-  padding-bottom: 240px;
-}
-
-.main-slides-item.item-two {
-  background-image: url("../images/main-slides/slides-bg-2.jpg");
-}
-
-.main-slides-item.item-three {
-  background-image: url("../images/main-slides/slides-bg-3.jpg");
-}
 
 .main-slides-item::before {
   position: absolute;
@@ -1047,11 +1026,12 @@ Main Banner Area CSS
   }
 }
 .main-banner-area {
-  background-image: url("../images/landing.jpg");
-  background-position: center center;
+  background-image: url("../images/newlanding.jpg");
+  background-position:  center;
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
+  background-attachment: fixed;
   z-index: 1;
   padding-top: 80px;
   overflow: hidden;

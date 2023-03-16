@@ -74,7 +74,7 @@ exports.getAUserTeam = async(req ,res)=>{
     try {
         const teamId = req.params.id
         const userId = req.user.userId
-        const userTeam = await UserTeam.findById(teamId)
+        const userTeam = await UserTeam.findById(teamId).populate('players')
         if(!userTeam) return res.status(400).json({
             error : 'Requested team does not exist'
         })
@@ -90,6 +90,23 @@ exports.userTeam = async(req ,res)=>{
     try {
         const userId = req.user.userId
         const userTeam = await UserTeam.findOne({ team_owner : userId })
+        .populate({
+            path: 'players',
+            populate: { path: 'defenders.player'}
+        })
+        .populate({
+            path: 'players',
+            populate: { path: 'goalkeeper.player'}
+        })
+        .populate({
+            path: 'players',
+            populate: { path: 'midfielders.player'}
+        })
+        .populate({
+            path: 'players',
+            populate: { path: 'attackers.player'}
+        })
+        
         if(!userTeam) return res.status(400).json({
             error : 'Requested team does not exist'
         })
