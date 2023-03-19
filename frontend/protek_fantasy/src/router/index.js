@@ -4,6 +4,7 @@ import About from '../views/About.vue'
 import PickTeam from '../views/PickTeam.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import PlayerRegister from '../views/PlayerRegister.vue'
 
 const routes = [
   {
@@ -44,6 +45,14 @@ const routes = [
     component: Register,
     meta : {
       title : 'Register'
+    }
+  },
+  {
+    path: '/player-register',
+    name: 'PlayerRegister',
+    component: PlayerRegister,
+    meta : {
+      title : 'PlayerRegister'
     }
   },
 ]

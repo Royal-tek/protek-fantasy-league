@@ -48,6 +48,9 @@ const PlayerSchema = new Schema({
     approved : {
         type : Boolean,
         default : false
+    },
+    imageUrl : {
+        type : String
     }
 })
 

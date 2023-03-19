@@ -1,14 +1,15 @@
 <template>
   <div id="nav">
-    <Navbar v-if="navigation"/>
-        <!-- Start Preloader Area -->
-        <div class="preloader">
+    <!-- Start Preloader Area -->
+    <div class="preloader">
             <div class="loader">
                 <div class="shadow"></div>
                 <div class="box"></div>
             </div>
         </div>
         <!-- End Preloader Area -->
+    <Navbar v-if="navigation"/>
+    
     <router-view/>
   <Footer v-if="navigation"/>
   </div>
@@ -20,6 +21,7 @@ import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
 export default {
   name : 'App',
+  cache : true,
   data(){
     return {
       navigation : true
@@ -30,7 +32,7 @@ export default {
   },
   methods : {
     checkNavigation(){
-      if(this.$route.name === 'Login' || this.$route.name === 'Register'){
+      if(this.$route.name === 'Login' || this.$route.name === 'Register' || this.$route.name === 'PlayerRegister'){
         this.navigation = false
         return
       }

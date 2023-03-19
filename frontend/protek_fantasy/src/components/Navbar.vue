@@ -32,9 +32,9 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="index-2.html#" class="nav-link">
+                                    <a class="nav-link">
                                         Events 
-                                        <i class="bx bx-chevron-down"></i>
+                                        <i class="fa fa-caret-down"></i>
                                     </a>
 
                                     <ul class="dropdown-menu">
@@ -46,9 +46,9 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="index-2.html#" class="nav-link">
+                                    <a  class="nav-link">
                                         Coach Admin 
-                                        <i class="bx bx-chevron-down"></i>
+                                        <i class="fa fa-caret-down"></i>
                                     </a>
 
                                     <ul class="dropdown-menu">
@@ -61,7 +61,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link">
                                         Team 
-                                        <i class="bx bx-chevron-down"></i>
+                                        <i class="fa fa-caret-down"></i>
                                     </a>
 
                                     <ul class="dropdown-menu">
@@ -123,7 +123,7 @@
                             <div class="others-options d-flex align-items-center">
 
                                 <div class="option-item"  v-if="!token">
-                                    <router-link :to="{name : 'Login'}" class="default-btn"><i class='bx bx-arrow-to-right'></i>Login<span></span></router-link>
+                                    <router-link :to="{name : 'Login'}" class="default-btn"><i class='fa fa-arrow-right'></i>Login<span></span></router-link>
                                 </div>
                                 <div class="option-item" v-if="token">
                                     <i @click="logout" class="fa fa-power-off logout" ></i>

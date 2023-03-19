@@ -1,42 +1,67 @@
 const Player = require('../models/Player')
 const Coach = require('../models/Coach')
 const Team = require('../models/Teams')
+const formidable = require('formidable')
+const cloudinary = require('cloudinary').v2
 
-exports.createPlayer = async(req, res)=>{
+const form = formidable({ multiples : true })
+
+exports.createPlayer = async(req, res, next)=>{
     try {
         
-        const {firstname, lastname, displayName, team, coach,  position , number } = req.body
-        const checkTeam = await Team.findById(team)
-        if(!checkTeam) return res.status(400).json({
-            error : "Player cannot be in assigned to a  team that does not exist"
-        })
-        const checkCoach = await Coach.findById(coach)
-        if(!checkCoach) return res.status(400).json({
-            error : "Player cannot be assigned to a coach that does not exist"
-        })
-        const checkDisplayName = await Player.findOne({ displayName : displayName})
-        if(checkDisplayName) return res.status(400).json({
-            error : "That display name has been taken"
-        })
-        
+        form.parse(req,  (err, fields, files)=>{
 
-        
-
-        const player = new Player({
-            firstname : firstname,
-            lastname : lastname,
-            displayName : displayName,
-            team : team,
-            position : position,
-            coach : coach,
-            number : number
+            if(err){
+                next(err)
+                return
+            }
+            const result =  cloudinary.uploader.upload(files.image.filepath, {
+                width : 400,
+                height : 400,
+                crop : 'fill'
+            })
+            result.then((data)=>{
+                console.log(data)
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+            
         })
 
         
+        
+        
 
-        await player.save()
-        res.status(201).json(player)
+        
+        // const {displayName, team, coach, ...others } = req.body
+        // const checkTeam = await Team.findById(team)
+        // if(!checkTeam) return res.status(400).json({
+        //     error : "Player cannot be in assigned to a  team that does not exist"
+        // })
+        // const checkCoach = await Coach.findById(coach)
+        // if(!checkCoach) return res.status(400).json({
+        //     error : "Player cannot be assigned to a coach that does not exist"
+        // })
+        // const checkDisplayName = await Player.findOne({ displayName : displayName})
+        // if(checkDisplayName) return res.status(400).json({
+        //     error : "That display name has been taken"
+        // })
+
+        // const player = new Player({
+        //     displayName,
+        //     team,
+        //     coach,
+        //     ...others
+            
+        // })
+
+        
+
+        // await player.save()
+        // res.status(201).json(player)
     } catch (error) {
+        console.log('kmkmkmkm')
         res.status(500).json(error)
     }
 }

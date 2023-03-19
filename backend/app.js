@@ -11,8 +11,14 @@ const PlayerRoutes = require('./routers/playerRoutes')
 const TeamRoutes = require('./routers/teamRoutes')
 const coachRoutes = require('./routers/coachRoutes')
 const cors = require('cors')
+const cloudinary = require('cloudinary').v2
 
 app.use(cors())
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_USER_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+})
 
 app.use(express.json())
 app.use(express.urlencoded({ extended : false}))
