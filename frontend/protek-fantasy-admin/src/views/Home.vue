@@ -1,206 +1,299 @@
 <template>
-  <div>
-    <main id="main" class="main">
+    <div class="nk-content ">
+                    <div class="container-fluid">
+                        <div class="nk-content-inner">
+                            <div class="nk-content-body">
+                                <div class="nk-block-head nk-block-head-sm">
+                                    <div class="nk-block-between">
+                                        <div class="nk-block-head-content">
+                                            <h3 class="nk-block-title page-title">Dashboard</h3>
+                                        </div>
+                                        <div class="nk-block-head-content">
+                                            <div class="toggle-wrap nk-block-tools-toggle"><a href="index.html#"
+                                                    class="btn btn-icon btn-trigger toggle-expand me-n1"
+                                                    data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
+                                                <div class="toggle-expand-content" data-content="pageMenu">
+                                                    <ul class="nk-block-tools g-3">
+                                                    
+                                                        <li class="nk-block-tools-opt"><a href="index.html#"
+                                                                class="btn btn-primary"><em
+                                                                    class="icon ni ni-reports"></em><span>Reports</span></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="nk-block">
+                                    <div class="row g-gs">
+                                        <div class="col-xxl-6 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Total Players</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount">100</div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                  <span style="font-size:30px;" class="bi bi-person-bounding-box"></span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-<div class="pagetitle">
-    <h1>Dashboard</h1>
-    <nav>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item active">Dashboard</li>
-      </ol>
-    </nav>
-  </div><!-- End Page Title -->
+                                        <div class="col-xxl-6 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Total Users</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount">500</div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                  <span
+                                                                        class="bi bi-people" style="font-size:30px;"></span>
+                                                                       
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-<section class="section dashboard">
-    <div class="row">
-        <!-- Left side columns -->
-    <div class="col-lg-12">
-        <div class="row">
+                                        <div class="col-xxl-6 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Approved Players</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount">100</div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                    <span style="font-size:30px;" class="bi bi-person-bounding-box"></span>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-          <!-- Sales Card -->
-          <div class="col-xxl-4 col-md-6">
-            <div class="card info-card sales-card">
+                                        <div class="col-xxl-6 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Verified Users</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount">500</div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                  <span
+                                                                        class="bi bi-people" style="font-size:30px;"></span>
+                                                                       
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-              
+                                        <div class="col-xxl-3 col-sm-3">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Coaches</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount">40</div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                  <span
+                                                                        class="bi bi-person-fill-gear" style="font-size:30px;"></span>
+                                                                       
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-              <div class="card-body">
-                <h5 class="card-title">REGISTERED USERS</h5>
+                                        <div class="col-xxl-3 col-sm-3">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Coaches</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount">40</div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                  <span
+                                                                        class="bi bi-person-fill-gear" style="font-size:30px;"></span>
+                                                                       
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                <div class="d-flex align-items-center">
-                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-people"></i>
-                  </div>
-                  <div class="ps-3">
-                    <h6>300</h6>
-                    <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
+                                        <div class="col-xxl-3 col-sm-3">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Coaches</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount">40</div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                  <span
+                                                                        class="bi bi-person-fill-gear" style="font-size:30px;"></span>
+                                                                       
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                  </div>
+                                        <div class="col-xxl-3 col-sm-3">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Coaches</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount">40</div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                  <span
+                                                                        class="bi bi-person-fill-gear" style="font-size:30px;"></span>
+                                                                       
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        
+                                       
+                                        <div class="col-xxl-12">
+                                            <div class="card card-full">
+                                                <div class="card-inner">
+                                                    <div class="card-title-group">
+                                                        <div class="card-title">
+                                                            <h6 class="title">Top Users</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="nk-tb-list mt-n2">
+                                                    <div class="nk-tb-item nk-tb-head">
+                                                        <div class="nk-tb-col"><span>No.</span></div>
+                                                        <div class="nk-tb-col tb-col-sm"><span>Firstname</span></div>
+                                                        <div class="nk-tb-col tb-col-sm"><span>Lastname</span></div>
+                                                        <div class="nk-tb-col tb-col-md"><span>Date</span></div>
+                                                        <div class="nk-tb-col"><span
+                                                                class="d-none d-sm-inline">Status</span></div>
+                                                    </div>
+
+                                                    <div class="nk-tb-item">
+                                                        <div class="nk-tb-col"><span class="tb-lead">#1</span></div>
+                                                        <div class="nk-tb-col">Afonime</div>
+                                                        <div class="nk-tb-col">Royal</div>
+                                                        <div class="nk-tb-col tb-col-md"><span
+                                                                class="tb-sub">02/11/2020</span></div>
+                                                        
+                                                        <div class="nk-tb-col"><span
+                                                                class="badge badge-dot badge-dot-xs bg-success">Paid</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="nk-tb-item">
+                                                        <div class="nk-tb-col"><span class="tb-lead">#2</span></div>
+                                                        <div class="nk-tb-col">Afonime</div>
+                                                        <div class="nk-tb-col">Noble</div>
+                                                        <div class="nk-tb-col tb-col-md"><span
+                                                                class="tb-sub">02/11/2020</span></div>
+                                                        
+                                                        <div class="nk-tb-col"><span
+                                                                class="badge badge-dot badge-dot-xs bg-warning">Pending</span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-
-            </div>
-          </div><!-- End Sales Card -->
-
-          <!-- Player Card -->
-          <div class="col-xxl-4 col-md-6">
-            <div class="card info-card revenue-card">
-
-              <div class="filter">
-                <!-- <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a> -->
-                
-              </div>
-
-              <div class="card-body">
-                <h5 class="card-title">REGISTERED PLAYERS</h5>
-
-                <div class="d-flex align-items-center">
-                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-person-bounding-box"></i>
-                  </div>
-                  <div class="ps-3">
-                    <h6>600</h6>
-
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div><!-- End Revenue Card -->
-
-          <!-- Customers Card -->
-          <div class="col-xxl-4 col-xl-12">
-
-            <div class="card info-card customers-card">
-
-              <div class="filter">
-               
-              </div>
-
-              <div class="card-body">
-                <h5 class="card-title">COACHES</h5>
-
-                <div class="d-flex align-items-center">
-                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-braces"></i>
-                  </div>
-                  <div class="ps-3">
-                    <h6>20</h6>
-
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          </div><!-- End Customers Card -->
-
-                              <!-- Customers Card -->
-          <div class="col-xxl-4 col-xl-12">
-
-          <div class="card info-card customers-card">
-
-            <div class="filter">
-            
-            </div>
-
-            <div class="card-body">
-              <h5 class="card-title">APPROVED USERS</h5>
-
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-person-check"></i>
-                </div>
-                <div class="ps-3">
-                  <h6>20</h6>
-
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          </div><!-- End Customers Card -->
-
-          <div class="col-xxl-4 col-xl-12">
-
-<div class="card info-card customers-card">
-
-  <div class="filter">
-  
-  </div>
-
-  <div class="card-body">
-    <h5 class="card-title">APPROVED PLAYERS</h5>
-
-    <div class="d-flex align-items-center">
-      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-        <i class="bi bi-person-check-fill"></i>
-      </div>
-      <div class="ps-3">
-        <h6>20</h6>
-
-      </div>
-    </div>
-
-  </div>
-</div>
-
-</div><!-- End Customers Card -->
-
-          <!-- Reports -->
-          <div class="col-12">
-            <div class="card">
-
-              <div class="filter">
-                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <li class="dropdown-header text-start">
-                    <h6>Filter</h6>
-                  </li>
-
-                  <li><a class="dropdown-item" href="#">Today</a></li>
-                  <li><a class="dropdown-item" href="#">This Month</a></li>
-                  <li><a class="dropdown-item" href="#">This Year</a></li>
-                </ul>
-              </div>
-
-              <div class="card-body">
-                <h5 class="card-title">Reports/Complaints</h5>
-
-                
-                <ol>
-                  <li>The points on my name is wrong  --- (ROYAL)</li>
-                </ol>
-                
-              </div>
-
-            </div>
-          </div><!-- End Reports -->
-
-
-        </div>
-      </div><!-- End Left side columns -->
-
-   
-    </div>
-
-</section>
-
-
-    </main>
-  </div>
 </template>
 
 <script>
-
 export default {
   name : 'Home',
-
-
 }
 </script>
 
 <style>
-
 </style>

@@ -1,9 +1,17 @@
 <template>
-  <div id="nav">
-    <Header/>
-    <sideBar/>
+  <div class="nk-body bg-lighter npc-default has-sidebar">
+    <div class="nk-app-root">
+        <div class="nk-main ">
+          <sideBar/>
+          <div class="nk-wrap ">
+          <Header/>
+          
+          <router-view/>
+    </div>
+    </div>
+    </div>
   </div>
-  <router-view/>
+  
 </template>
 
 <script>

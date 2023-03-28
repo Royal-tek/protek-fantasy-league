@@ -706,6 +706,9 @@ Navbar Area CSS
   .main-responsive-nav {
     display: block;
   }
+  .logout{
+    display : none
+  }
   .main-responsive-nav .main-responsive-menu {
     position: relative;
   }
@@ -805,6 +808,11 @@ Main Banner Area CSS
   }
   .main-banner-area{
     background-image: url("../images/3.png") !important; 
+    background-size: cover;
+    background-position: center;
+    padding-top: 100px !important;
+    /* padding-top: 0px !important;  */
+    background-attachment: fixed;
   }
 }
 .main-banner-area {

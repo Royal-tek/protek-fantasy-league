@@ -12,15 +12,19 @@ const TeamSchema = new Schema({
     },
     
     players : {
+        captain : {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : 'Player'
+        },
         goalkeeper : {
             player : {
                 type : mongoose.Schema.Types.ObjectId,
                 ref : 'Player'
             }, 
-            isCaptain : {
-                type : Boolean,
-                default : false
-            }
+            // isCaptain : {
+            //     type : Boolean,
+            //     default : false
+            // }
         },
 
         defenders : [
@@ -29,10 +33,10 @@ const TeamSchema = new Schema({
                     type : mongoose.Schema.Types.ObjectId,
                     ref : 'Player'
                 }, 
-                isCaptain : {
-                    type : Boolean,
-                    default : false
-                }
+                // isCaptain : {
+                //     type : Boolean,
+                //     default : false
+                // }
             }
         ],
 
@@ -42,10 +46,10 @@ const TeamSchema = new Schema({
                     type : mongoose.Schema.Types.ObjectId,
                     ref : 'Player'
                 }, 
-                isCaptain : {
-                    type : Boolean,
-                    default : false
-                }
+                // isCaptain : {
+                //     type : Boolean,
+                //     default : false
+                // }
             }
         ],
         
@@ -55,21 +59,13 @@ const TeamSchema = new Schema({
                     type : mongoose.Schema.Types.ObjectId,
                     ref : 'Player'
                 }, 
-                isCaptain : {
-                    type : Boolean,
-                    default : false
-                }
+                // isCaptain : {
+                //     type : Boolean,
+                //     default : false
+                // }
             }
         ],
     },
-    weekly_points : {
-        type : Number,
-        default : 0
-    },
-    total_points : {
-        type : Number,
-        default : 0
-    }
 
 },
 { timestamps : true}

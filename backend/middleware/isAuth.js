@@ -30,7 +30,7 @@ exports.isCoach = async(req, res, next)=>{
     try{
     const { email } = req.user
     const coachUser = await User.findOne({ email })
-    if(adminUser.role !== 'coach'){
+    if(coachUser.role !== 'coach'){
         return res.status(403).json({
             error : "You are not an Coach User"
         })

@@ -1,14 +1,16 @@
 <template>
   <div id="pickteam">
+    <captain v-if="showCaptain" :selectedPlayers="selectedPlayers" v-on:close-btn="showCaptain=false" v-on:init-captain="initCaptain(captain)"/>
     <h3 class="text-center text-uppercase py-5" style="background-color: #f1f1f1;">Select players</h3>
 
     <div class="container-fluid my-3">
         <div class="row">
             <div class="col-lg-4">
+                <h5 class="text-center text-uppercase my-3">Choose your formation</h5>
                 <div  class="select-formation d-flex">
-                    <input :disabled="formations.disable" type="number" class="form-control shadow-none" placeholder="Defenders" v-model="formations.defenders.defendersValue">
-                    <input :disabled="formations.disable" type="number" class="form-control shadow-none" placeholder="Midfielders" v-model="formations.midfielders.midfieldersValue">
-                    <input :disabled="formations.disable" type="number" class="form-control shadow-none" placeholder="Attackers" v-model="formations.attackers.attackersValue">
+                    <input :disabled="formations.disable" type="number" class="form-control shadow-none" placeholder="Defenders" v-model="formations.defenders.defendersValue" @keyup.enter="generateFormation">
+                    <input :disabled="formations.disable" type="number" class="form-control shadow-none" placeholder="Midfielders" v-model="formations.midfielders.midfieldersValue" @keyup.enter="generateFormation">
+                    <input :disabled="formations.disable" type="number" class="form-control shadow-none" placeholder="Attackers" v-model="formations.attackers.attackersValue" @keyup.enter="generateFormation">
                 </div>
                 <div class="submit-formation">
                     <button :disabled="formations.disable" class="btn" style="background-color: #279843; color: #fff;" @click.prevent="generateFormation">Generate Formation</button>
@@ -24,10 +26,10 @@
                         <select class="form-select shadow-none" v-model="selectedPosition" @change="filterPosition(selectedPosition)">
                             <option value = ''> Filter by Position</option>
                             <option value="all">All</option>
-                            <option value="goalkeepers">GoalKeepers</option>
-                            <option value="defenders">Defenders</option>
-                            <option value="midfielders">Midfielders</option>
-                            <option value="attackers">Attackers</option>
+                            <option value="goalkeeper">GoalKeepers</option>
+                            <option value="defender">Defenders</option>
+                            <option value="midfielder">Midfielders</option>
+                            <option value="attacker">Attackers</option>
                         </select>
                     </div>
 
@@ -36,9 +38,13 @@
                     </div>
 
                     <div class="player-list-holder">
-                        <div class="player-list" v-for="player in unselectedPlayers" :key="player.id" @click="selectPlayer(player)">
+                        <div class="player-list text-capitalize" v-for="player in unselectedPlayers" :key="player.id" @click="selectPlayer(player)" 
+                        :class="selectedPlayers.midfielders.includes(player) || selectedPlayers.defenders.includes(player) || selectedPlayers.attackers.includes(player) || selectedPlayers.goalkeepers.includes(player)
+                         ? 'picked' : 'unpicked'"                        
+                  >
+
                             <span><b>{{ player.position }}</b></span>
-                            <span>{{ player.firstname }} {{ player.lastname }} ({{ player.team }})</span>
+                            <span>{{ player.firstname }} {{ player.lastname }} ({{ player.team.team_name }})</span>
                             
                             <span>
                                 <i class="fa fa-plus"></i>
@@ -49,14 +55,7 @@
                     
                 </div>
                 <div class="my-5">
-                    <button class="btn" style="background-color: #279843; color: #fff; margin: 0 auto; display: block;" v-if="formations.selectFormation">Save Team</button>
-                    <!-- {{  selectedPlayers }} -->
-                    <!-- {{ selectedPosition }} -->
-                    <!-- {{ selectedPlayers }} -->
-                        <!-- {{ selectedPlayers }} -->
-                    <!-- {{ formations.goalkeeper }} -->
-                    <!-- {{ formations.attackers.attackersValue }} -->
-                    <!-- {{ selectedPosition }} -->
+                    <button class="btn" style="background-color: #279843; color: #fff; margin: 0 auto; display: block;" v-if="formations.selectFormation" @click="submitTeam">Save Team</button>
                 </div>
             </div>
             <div class="col-lg-8">
@@ -66,20 +65,21 @@
                         <!-- GOAL KEEPER ROW -->
                     <div class="row keeper-row">
                         <div class="col text-center pos">
-                            <div class="player mt-3 pt-2" >
+                            <div class="player mt-3 pt-2"  :class="formations.goalkeeper ? 'sel': 'unselected'">
+                            
                                 
                                 <div class="player-img mb-1" >
-                                    <span class="remove-player">
+                                    <span class="remove-player" @click="removePlayer(index, 'gk')">
                                         <i class="fa fa-times"></i>
                                     </span>
-                                    <img src="../../public/black.png" alt="" @click="filterPosition('goalkeepers')">
+                                    <img src="../../public/black.png" alt="" @click="filterPosition('goalkeeper')">
                                 </div>
                                 <div class="player-info">
                                     
                                     <span>{{ formations.goalkeeper ? formations.goalkeeper.firstname:'Name' }}</span>
                                 </div>
                                 <div class="player-team">
-                                    <span>{{ formations.goalkeeper ?  formations.goalkeeper.team: 'Team' }}</span>
+                                    <span>{{ formations.goalkeeper ?  formations.goalkeeper.team.team_name: 'Team' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -88,22 +88,22 @@
                     <!-- DEFENDERS ROW -->
                     <div class="row  player-row">
                         <div class="col text-center pos"  v-for=" (player, index) in formations.defenders.defendersValue" :key="player.id">
-                            <div class="player mt-3 pt-2">    
+                            <div class="player mt-3 pt-2" :class="formations.defenders.players[index] ? 'sel': 'unselected'">    
                                 <div class="player-img mb-1" >
-                                    <span class="remove-player">
+                                    <span class="remove-player" @click="removePlayer(index, 'def')">
                                         <i class="fa fa-times"></i>
                                     </span>
-                                    <img src="../../public/black.png" alt="" @click="filterPosition('defenders')">
+                                    <img src="../../public/black.png" alt="" @click="filterPosition('defender')">
                                 </div>
                                 <div class="player-info">
                                     
                                     <span>{{ formations.defenders.players[index] ? formations.defenders.players[index].name : 'Name'}}</span>
                                 </div>
                                 <div class="player-team">
-                                    <span>{{ formations.defenders.players[index] ? formations.defenders.players[index].team : 'Team'}}</span>
+                                    <span>{{ formations.defenders.players[index] ? formations.defenders.players[index].team.team_name : 'Team'}}</span>
                                 </div>
                             </div>
-
+                           
                             
 
                         </div>
@@ -112,9 +112,9 @@
                     <!-- MIDFIELDERS ROW -->
                     <div class="row  player-row">
                         <div class="col text-center pos"  v-for="(player, index) in formations.midfielders.midfieldersValue" :key="player.id">
-                            <div class="player mt-3 pt-2">    
-                                <div class="player-img mb-1" @click="filterPosition('midfielders')">
-                                    <span class="remove-player">
+                            <div class="player mt-3 pt-2" :class="formations.midfielders.players[index] ? 'sel': 'unselected'">    
+                                <div class="player-img mb-1" @click="filterPosition('midfielder')">
+                                    <span class="remove-player" @click="removePlayer(index, 'mid')">
                                         <i class="fa fa-times"></i>
                                     </span>
                                     <img src="../../public/black.png" alt="">
@@ -123,10 +123,10 @@
                                     <span>{{ formations.midfielders.players[index] ? formations.midfielders.players[index].name : 'Name'}}</span>
                                 </div>
                                 <div class="player-team">
-                                    <span>{{ formations.midfielders.players[index] ? formations.midfielders.players[index].team : 'Team'}}</span>
+                                    <span>{{ formations.midfielders.players[index] ? formations.midfielders.players[index].team.team_name : 'Team'}}</span>
                                 </div>
                             </div>
-
+                            
                             
 
                         </div>
@@ -135,9 +135,9 @@
                     <!-- ATTACKERS ROW -->
                     <div class="row player-row">
                         <div class="col text-center pos"  v-for=" (player, index) in formations.attackers.attackersValue" :key="player.id">
-                            <div class="player mt-3 pt-2">    
-                                <div class="player-img mb-1" @click="filterPosition('attackers')">
-                                    <span class="remove-player">
+                            <div class="player mt-3 pt-2" :class="formations.attackers.players[index] ? 'sel': 'unselected'">    
+                                <div class="player-img mb-1" @click="filterPosition('attacker')">
+                                    <span class="remove-player" @click="removePlayer(index, 'att')">
                                         <i class="fa fa-times"></i>
                                     </span>
                                     <img src="../../public/black.png" alt="">
@@ -146,7 +146,7 @@
                                     <span>{{ formations.attackers.players[index] ? formations.attackers.players[index].name : 'Name'}}</span>
                                 </div>
                                 <div class="player-team">
-                                    <span>Position</span>
+                                    <span>{{ formations.attackers.players[index] ? formations.attackers.players[index].team.team_name : 'Team'}}</span>
                                 </div>
                             </div>
 
@@ -164,42 +164,25 @@
 </template>
 
 <script>
+import axios from 'axios'
+import captain from '../components/Captain.vue'
 export default {
     data(){
         return{
+            showCaptain : false,
+            team_error : false,
+            newselectedPlayers : [],
+            singlePlayer :  {},
             unselectedPlayers : [],
             selectedPlayers : {
-                goalkeepers : '',
+                captain : '',
+                goalkeepers : [],
                 defenders : [],
                 midfielders : [],
                 attackers : []
             },
             selectedPosition : '',
-            players:[
-                
-                {firstname : 'zoe', lastname : 'Afonime', team : 'CSC', position : 'goalkeepers'},
-                {firstname : 'clinton', lastname : 'Afonime', team : 'CSC', position : 'midfielders'},
-                {firstname : 'Noble', lastname : 'Afonime', team : 'SOS', position : 'attackers'},
-                {firstname : 'Excel', lastname : 'Afonime', team : 'CSC', position : 'defenders'},
-                {firstname : 'zoe', lastname : 'Afonime', team : 'SOS', position : 'goalkeepers'},
-                {firstname : 'Royal', lastname : 'Afonime', team : 'CSC', position : 'midfielders'},
-                {firstname : 'Majek', lastname : 'Afonime', team : 'SOS', position : 'attackers'},
-                {firstname : 'jigah', lastname : 'Afonime', team : 'CSC', position : 'defenders'},
-                {firstname : 'Mikini', lastname : 'Afonime', team : 'CSC', position : 'goalkeepers'},
-                {firstname : 'Royal', lastname : 'Afonime', team : 'MECH', position : 'midfielders'},
-                {firstname : 'Noble', lastname : 'Afonime', team : 'CSC', position : 'attackers'},
-                {firstname : 'david', lastname : 'Afonime', team : 'MECH', position : 'defenders'},
-                {firstname : 'zoe', lastname : 'Afonime', team : 'CSC', position : 'goalkeepers'},
-                {firstname : 'Ovo', lastname : 'Afonime', team : 'CSC', position : 'midfielders'},
-                {firstname : 'Noble', lastname : 'Afonime', team : 'MECH', position : 'attackers'},
-                {firstname : 'edwin', lastname : 'Afonime', team : 'CSC', position : 'defenders'},
-                {firstname : 'zoe', lastname : 'Afonime', team : 'CSC', position : 'goalkeepers'},
-                {firstname : 'timawus', lastname : 'Afonime', team : 'MECH', position : 'midfielders'},
-                {firstname : 'Noble', lastname : 'Afonime', team : 'CSC', position : 'attackers'},
-                {firstname : 'godsent', lastname : 'Afonime', team : 'CSC', position : 'defenders'}
-
-                
-        ],
+            players:[],
             formations : {
                 selectFormation : false,
                 goalkeeper : '',
@@ -224,10 +207,73 @@ export default {
 
         }
     },
+    components : {
+        captain
+    },
     mounted(){
-        this.unselectedPlayers = this.players
+        setTimeout(()=>{
+            this.unselectedPlayers = this.players
+        },3000)
+        this.getPlayers()
     },
     methods : {
+        removePlayer(index, position){
+            const combinedArray = [
+                        ...this.selectedPlayers.defenders,
+                        ...this.selectedPlayers.midfielders,
+                        ...this.selectedPlayers.attackers,
+                        ...this.selectedPlayers.goalkeepers
+                    ]
+
+                    const countPlayers = (value, arr) =>
+                    arr.filter((x) => x.team.team_name === value).length;
+
+                    combinedArray.forEach((player)=>{
+                        if (countPlayers(player.team.team_name, combinedArray) > 3){
+                            this.team_error = true
+                            this.formations.error = true
+                            this.formations.errorMsg = 'You have more than 3 players from a team'
+                        setTimeout(()=>{
+                            this.formations.error = false
+                            this.formations.errorMsg = ''
+                        },3000) 
+                        
+                        }else{
+                            this.team_error = false
+                        }
+                        
+                    })
+
+
+            this.newselectedPlayers.splice(index, 1)
+            if(position === 'mid'){
+                this.formations.midfielders.players.splice(index, 1)
+                this.selectedPlayers.midfielders.splice(index, 1)
+            }
+            if(position === 'def'){
+                this.formations.defenders.players.splice(index, 1)
+                this.selectedPlayers.defenders.splice(index, 1)
+            }
+            if(position === 'att'){
+                this.formations.attackers.players.splice(index, 1)
+                this.selectedPlayers.attackers.splice(index, 1)
+            }
+            if(position === 'gk'){
+                this.formations.goalkeeper = ''
+                this.selectedPlayers.goalkeepers.splice(index, 1) 
+
+            }
+        },
+        getPlayers(){
+            axios.get('http://localhost:8000/api/player/get-all-players')
+            .then((response)=>{
+                this.players = response.data
+                console.log(response.data);
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+        },
         generateFormation(){
             if(isNaN(this.formations.defenders.defendersValue)  ||  isNaN(this.formations.midfielders.midfieldersValue) || isNaN(this.formations.attackers.attackersValue)){
                 this.formations.error = true
@@ -286,8 +332,36 @@ export default {
             this.formations.showEdit = false
         },
         selectPlayer(player){
+            const combinedArray = [
+                        ...this.selectedPlayers.defenders,
+                        ...this.selectedPlayers.midfielders,
+                        ...this.selectedPlayers.attackers,
+                        ...this.selectedPlayers.goalkeepers
+                    ]
+
+                    const countPlayers = (value, arr) =>
+                    arr.filter((x) => x.team.team_name === value).length;
+
+                    combinedArray.forEach((player)=>{
+                        if (countPlayers(player.team.team_name, combinedArray) > 3){
+                            this.team_error = true
+                            this.formations.error = true
+                            this.formations.errorMsg = 'Cannot pick more than 3 players from a team'
+                        setTimeout(()=>{
+                            this.formations.error = false
+                            this.formations.errorMsg = ''
+                        },3000) 
+                        
+                        }else{
+                            this.team_error = false
+                        }
+                        
+                    })
             
-            if(this.selectedPlayers.defenders.includes(player) || this.selectedPlayers.midfielders.includes(player) || this.selectedPlayers.attackers.includes(player) || this.selectedPlayers.goalkeepers == player ){
+            // const validatePlayer = this.newselectedPlayers.filter((item) => item.team.team_name ===  player.team.team_name)
+            // console.log(validatePlayer.length);
+
+            if(this.selectedPlayers.defenders.includes(player) || this.selectedPlayers.midfielders.includes(player) || this.selectedPlayers.attackers.includes(player) || this.selectedPlayers.goalkeepers.includes(player) ){
                     this.formations.error = true
                     this.formations.errorMsg = 'Player is already in your team'
                 setTimeout(()=>{
@@ -296,12 +370,20 @@ export default {
                 },3000)
             }
             else{
-                if(player.position === 'goalkeepers'){
-                    this.formations.goalkeeper = player
-                    this.selectedPlayers.goalkeepers = player
-                }
-                if(player.position === 'defenders'){
-                    if(this.formations.defenders.players.length >= this.formations.defenders.defendersValue){
+                if(player.position === 'goalkeeper'){
+                   
+                        this.formations.goalkeeper = player
+                        this.selectedPlayers.goalkeepers.push(player)
+                        this.singlePlayer.team = player.team
+                        this.newselectedPlayers.push(this.singlePlayer)
+                    }
+
+                    
+
+                
+                if(player.position === 'defender'){
+                    
+                        if(this.formations.defenders.players.length >= this.formations.defenders.defendersValue){
                         this.formations.error = true
                         this.formations.errorMsg = 'Max amount of defender position in team already'
                         
@@ -315,13 +397,19 @@ export default {
                             name : player.firstname,
                             team : player.team
                         })
+
                         this.selectedPlayers.defenders.push(player)
+                        this.singlePlayer.team = player.team
+                    this.newselectedPlayers.push(this.singlePlayer)
                         
                     }
                 }
+                    
+                    
 
-                if(player.position === 'midfielders'){
-                    if(this.formations.midfielders.players.length >= this.formations.midfielders.midfieldersValue){
+                if(player.position === 'midfielder'){
+                    
+                        if(this.formations.midfielders.players.length >= this.formations.midfielders.midfieldersValue){
                         this.formations.error = true
                         this.formations.errorMsg = 'Max amount of midfielders position in team already'
                         
@@ -336,12 +424,19 @@ export default {
                             team : player.team
                         })
                         this.selectedPlayers.midfielders.push(player)
+                        this.singlePlayer.team = player.team
+                        this.newselectedPlayers.push(this.singlePlayer)
                         
                     }
                 }
+                    
 
-                if(player.position === 'attackers'){
-                    if(this.formations.attackers.players.length >= this.formations.attackers.attackersValue){
+                    
+
+                if(player.position === 'attacker'){
+                    
+                    
+                        if(this.formations.attackers.players.length >= this.formations.attackers.attackersValue){
                         this.formations.error = true
                         this.formations.errorMsg = 'Max amount of attackers position in team already'
                         
@@ -356,34 +451,21 @@ export default {
                             team : player.team
                         })
                         this.selectedPlayers.attackers.push(player)
+                        this.singlePlayer.team = player.team
+                    this.newselectedPlayers.push(this.singlePlayer)
                         
                     }
                 }
 
-                let combinedArray = [
-                    ...this.selectedPlayers.defenders,
-                    ...this.selectedPlayers.midfielders,
-                    ...this.selectedPlayers.attackers,
-                    this.selectedPlayers.goalkeepers
-                ]
-              console.log(combinedArray)
-              const countPlayers = (value, arr)=>
-                arr.filter((x)=> x.team === value).length
-              
-              if(countPlayers(player.team, combinedArray) > 3){
-                this.formations.error = true
-                        this.formations.errorMsg = 'Not more than 3 players from a team'
-                        
-                setTimeout(()=>{
-                    this.formations.error = false
-                    this.formations.errorMsg = ''
-                },3000)
-              }
+            
+                    
+                    
+                    
 
-            }
+            }},
+        
 
-        },
-        filterPosition(position){
+            filterPosition(position){
             
             if(position == 'all') { 
                 return this.unselectedPlayers = this.players
@@ -396,11 +478,87 @@ export default {
             this.unselectedPlayers = result
             
 
+        },
+
+
+        submitTeam(){
+            let combinedArray = [
+                ...this.selectedPlayers.defenders,
+                ...this.selectedPlayers.midfielders,
+                ...this.selectedPlayers.attackers,
+                ...this.selectedPlayers.goalkeepers
+                
+            ]
+            
+            if(this.team_error){
+                            this.formations.error = true
+                            this.formations.errorMsg = 'Cannot pick more than 3 players from a team'
+                        setTimeout(()=>{
+                            
+                            this.formations.error = false
+                            this.formations.errorMsg = ''
+
+                        }, 2000)
+                        
         }
+        else{
+            
+            if(combinedArray.length < 11){
+                this.formations.error = true
+                this.formations.errorMsg = `Team selection not complete, ${11 - combinedArray.length} player(s) left`
+                setTimeout(()=>{
+                    this.formations.error = false
+                    this.formations.errorMsg = ``
+                }, 2000)
+                return
+            }
+
+            
+
+            this.showCaptain = true;
+        }
+        },
+
+        initCaptain(captain){
+                this.showCaptain = false
+                this.selectedPlayers.captain = captain;
+
+                axios.post('http://localhost:8000/api/user-team/create-team', 
+                {
+                    players : {
+                        goalkeeper : this.selectedPlayers.goalkeepers,
+                        defenders : this.selectedPlayers.defenders,
+                        midfielders : this.selectedPlayers.midfielders,
+                        attackers : this.selectedPlayers.attackers,
+                        captain : this.selectedPlayers.captain
+                    }
+                }, {headers : {"Authorization": "Token "+localStorage.getItem('token')}})
+                .then((response)=>{
+                    this.$swal({
+                    icon:'success',
+                    title: 'Success',
+                    text:response.data.message,
+                    }).then((result)=>{
+                        if(result.isConfirmed) this.$router.push('/')
+                    })
+                    
+                    console.log(response);
+                })
+                .catch((error)=>{
+                    this.$swal({
+                    icon:'error',
+                    title: 'Failed',
+                    text:error.response.data.error,
+                    })
+                    console.log(error);
+                })
+        }
+    
+        
+
 
         },
         
-    
 
 }
 </script>
@@ -612,4 +770,17 @@ export default {
         height: 100%;
 
     }
+    .picked {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.unpicked {
+  opacity: 1;
+}
+.unselected {
+  opacity: 0.5;
+}
+.sel {
+  opacity: 1;
+}
 </style>

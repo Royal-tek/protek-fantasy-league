@@ -5,6 +5,7 @@ import PickTeam from '../views/PickTeam.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import PlayerRegister from '../views/PlayerRegister.vue'
+import CoachAdmin from '../views/CoachAdmin.vue'
 
 const routes = [
   {
@@ -53,6 +54,14 @@ const routes = [
     component: PlayerRegister,
     meta : {
       title : 'PlayerRegister'
+    }
+  },
+  {
+    path: '/coach-admin',
+    name: 'CoachAdmin',
+    component: CoachAdmin,
+    meta : {
+      title : 'CoachAdmin'
     }
   },
 ]

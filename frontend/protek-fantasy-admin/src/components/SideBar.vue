@@ -1,101 +1,68 @@
 <template>
-    <div class="sidebar">
-            <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
-  
-      <ul class="sidebar-nav" id="sidebar-nav">
-  
-        <li class="nav-item">
-          <router-link to="/" class="nav-link" >
-            <i class="bi bi-grid"></i>
-            <span>Dashboard</span>
-          </router-link>
-        </li><!-- End Dashboard Nav -->
-  
-        <li class="nav-item">
-          <router-link to="/add-player" class="nav-link collapsed" >
-            <i class="bi bi-grid"></i>
-            <span>Add Players</span>
-          </router-link>
-        </li><!-- End Dashboard Nav -->
+    <div class="nk-sidebar nk-sidebar-fixed is-light " data-content="sidebarMenu">
+                <div class="nk-sidebar-element nk-sidebar-head">
+                    <div class="nk-sidebar-brand"><a  class="logo-link nk-sidebar-logo"><img
+                                class="logo-light logo-img" src="images/logo.png" srcset="/demo2/images/logo2x.png 2x"
+                                alt="logo"><img class="logo-dark logo-img" src="images/logo-dark.png"
+                                srcset="/demo2/images/logo-dark2x.png 2x" alt="logo-dark"><img
+                                class="logo-small logo-img logo-img-small" src="images/logo-small.png"
+                                srcset="/demo2/images/logo-small2x.png 2x" alt="logo-small"></a></div>
+                                
+                    <div class="nk-menu-trigger me-n2"><a href="/"
+                            class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu"><em
+                                class="icon ni ni-arrow-left"></em></a><a href="/"
+                            class="nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex"
+                            data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a></div>
+                </div>
+                <div class="nk-sidebar-element">
+                    <div class="nk-sidebar-content">
+                        <div class="nk-sidebar-menu" data-simplebar>
+                            <ul class="nk-menu">
 
- 
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed"  href="withdraw.html">
-            <i class="bi bi-layout-text-window-reverse"></i><span>Withdraw</span>
-          </a>
-          
-        </li><!-- End Tables Nav -->
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed"  href="#">
-            <i class="bi bi-journal-text"></i><span>Start Trade</span>
-          </a>
-          
-        </li><!-- End Forms Nav -->
-  
-        
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed"  href="#">
-            <i class="bi bi-bar-chart"></i><span>History</span>
-          </a>
-          
-        </li><!-- End Charts Nav -->
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed"  href="#">
-            <i class="bi bi-gem"></i><span>Settings</span>
-          </a>
-          
-        </li><!-- End Icons Nav -->
-  
-        <li class="nav-heading">Pages</li>
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="users-profile.html">
-            <i class="bi bi-person"></i>
-            <span>Profile</span>
-          </a>
-        </li><!-- End Profile Page Nav -->
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="pages-faq.html">
-            <i class="bi bi-question-circle"></i>
-            <span>F.A.Q</span>
-          </a>
-        </li><!-- End F.A.Q Page Nav -->
-  
-        
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="pages-register.html">
-            <i class="bi bi-card-list"></i>
-            <span>Register</span>
-          </a>
-        </li><!-- End Register Page Nav -->
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="pages-login.html">
-            <i class="bi bi-box-arrow-in-right"></i>
-            <span>Login</span>
-          </a>
-        </li><!-- End Login Page Nav -->
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="pages-login.html">
-            <i class="bi bi-box-arrow-in-right"></i>
-            <span>Logout</span>
-          </a>
-        </li><!-- End Login Page Nav -->
-  
-  
-  
-      </ul>
-  
-    </aside><!-- End Sidebar-->
-    </div>
+                                <li class="nk-menu-heading">
+                                    <h6 class="overline-title text-primary-alt">Dashboard</h6>
+                                </li>
+                                
+                                <li class="nk-menu-item"><a href="index-analytics.html" class="nk-menu-link"><span
+                                            class="nk-menu-icon"><em class="icon ni ni-growth-fill"></em></span><span
+                                            class="nk-menu-text">Analytics</span></a></li>
+
+
+
+                                <li class="nk-menu-heading">
+                                    <h6 class="overline-title text-primary-alt">Applications</h6>
+                                </li>
+
+
+
+                                <li class="nk-menu-item has-sub"><a href="/"
+                                        class="nk-menu-link nk-menu-toggle"><span class="nk-menu-icon"><em
+                                                class="icon ni ni-tile-thumb-fill"></em></span><span
+                                            class="nk-menu-text">Players</span></a>
+                                    <ul class="nk-menu-sub">
+                                        <li class="nk-menu-item"><a href="project-card.html" class="nk-menu-link"><span
+                                                    class="nk-menu-text">Player List</span></a></li>
+                                        <li class="nk-menu-item"><a href="project-list.html" class="nk-menu-link"><span
+                                                    class="nk-menu-text">Project List</span></a></li>
+                                    </ul>
+                                </li>
+                              
+                              
+                              
+                                
+                                <li class="nk-menu-item"><a href="pricing-table.html" class="nk-menu-link"><span
+                                            class="nk-menu-icon"><em class="icon ni ni-view-col"></em></span><span
+                                            class="nk-menu-text">Pricing Table</span></a></li>
+                                <li class="nk-menu-item"><a href="gallery.html" class="nk-menu-link"><span
+                                            class="nk-menu-icon"><em class="icon ni ni-img"></em></span><span
+                                            class="nk-menu-text">Image Gallery</span></a></li>
+                            
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
   </template>
   
   <script>

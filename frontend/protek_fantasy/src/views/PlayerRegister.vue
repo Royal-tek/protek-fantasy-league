@@ -39,7 +39,7 @@
     
             <div class="col-lg-6 register-part">
             <div class="register-holder">
-                <form class="form">
+                <form class="form" enctype="multipart/form-data">
                 <div class="first">
                     <div>
                     <h2>Become A Player</h2>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="form-group">
                     <input
-                    v-model="firstname"
+                    v-model="player.firstname"
                     type="text"
                     class="form-control shadow-none"
                     placeholder="Firstname"
@@ -61,7 +61,7 @@
                 </div>
                 <div class="form-group">
                     <input
-                    v-model="lastname"
+                    v-model="player.lastname"
                     type="text"
                     class="form-control shadow-none"
                     placeholder="Lastname"
@@ -69,7 +69,7 @@
                 </div>
                 <div class="form-group">
                     <input
-                    v-model="displayName"
+                    v-model="player.displayName"
                     type="text"
                     class="form-control shadow-none"
                     placeholder="Display Name"
@@ -79,7 +79,7 @@
     
                 <div class="form-group">
                     <input
-                    v-model="text"
+                    v-model="player.number"
                     type="number"
                     class="form-control shadow-none"
                     placeholder="Number"
@@ -89,24 +89,32 @@
                 
     
                 <div class="form-group">
-                    <select class="form-select shadow-none" >
+                    <select class="form-select shadow-none" v-model="player.team">
                         <option value="">Select Team</option>
-                        <option v-for="team in teams" :key="team.id" value=""></option>
+                        <option v-for="team in teams" :key="team.id" :value="team._id">{{ team.team_name }}</option>
                     </select>
                 </div>
 
+                
+
                 <div class="form-group">
-                    <select class="form-select shadow-none" >
-                        <option value="">Select Coach</option>
-                        <option v-for="coach in players" :key="coach.id" value=""></option>
+                    <select class="form-select shadow-none" v-model="player.position">
+                        <option value="">Select Position</option>
+                        <option value="attacker">Attacker</option>
+                        <option value="midfielder">Midfielder</option>
+                        <option value="defender">Defender</option>
+                        <option value="goalkeeper">Goalkeeper</option>
                     </select>
                 </div>
+                
+
+
 
                 <div class="form-group" style="margin:0 0 50px">
                     
                     <label for="" style=" width:100%">
-                    <input 
-                    
+                    <input
+                    @change="addImage"                  
                     type="file"
                     class="form-control shadow-none "
                     accept="image/*"
@@ -115,13 +123,12 @@
                 </div>
     
                 <div class="form-group">
-                    <button :disabled="disabled" @click.prevent="register" class="btn register-btn w-100 shadow-none">
+                    <button :disabled="disabled" @click.prevent="playerReg" class="btn register-btn w-100 shadow-none">
                     <span v-if="loading"><img class="img-fluid me-1" style="height: 15px;" src="../../public/assets/images/loading.gif" alt=""></span>
                     Submit</button>
                 </div>
                 <p v-if="error" class="p-3 text-center" style="background-color: #FFCCCB; color: black;">{{ errorMsg }}</p>
     
-                
                 </form>
             </div>
             </div>
@@ -131,16 +138,112 @@
     </template>
         
         <script>
-        
+        import axios from 'axios'
     export default {
         name: "PlayerRegister",
         data(){
             return {
+                player : {
+                    firstname : '',
+                    lastname : '',
+                    displayName : '',
+                    coach : '',
+                    team : '',
+                    number : '',
+                    position : '',
+                    imageUrl : null,
+                },
+            
+                teams : [],
                 isShowModal : true,
+                error : null,
+                errorMsg : '',
+                disabled : false,
+                loading : false
                 
             }
         },
+        created (){
+            this.getTeams()
+        },
         methods : {
+            addImage(event){
+                this.player.imageUrl = event.target.files[0]
+                
+            },
+            
+            getTeams(){
+                axios.get('http://localhost:8000/api/teams/get-teams')
+                .then((response)=>{
+                    this.teams = response.data
+                    console.log(response.data)
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
+            },
+            playerReg(){
+                this.loading = true
+                this.disabled = true
+
+                if(this.player.firstname == '' || this.player.lastname == '' || this.player.displayName == '' || this.player.team == ''  || this.player.number == '' || this.player.position == ''){
+                    this.error = true
+                    this.errorMsg = 'That field cannot be left blank'
+                    setTimeout(()=>{
+                        this.error = false
+                        this.errorMsg = ''
+                        this.loading = false
+                        this.disabled = false
+                    },2000)
+                    return
+                }
+                const fd = new FormData()
+                fd.append('firstname', this.player.firstname)
+                fd.append('lastname', this.player.lastname)
+                fd.append('displayName', this.player.displayName)
+                fd.append('position', this.player.position)
+                fd.append('number', this.player.number)
+                fd.append('team', this.player.team)
+                fd.append('imageUrl', this.player.imageUrl)
+
+                
+                axios.post('http://localhost:8000/api/player/create-player', fd)
+                .then((response)=>{
+                        this.$swal({
+                    icon:'success',
+                    title: 'Success',
+                    text:'PLAYER CREATED SUCCESSFULLY',
+                    })
+                    this.player.firstname = ''
+                    this.player.lastname = ''
+                    this.player.displayName = ''
+                    this.player.position = ''
+                    this.player.number = ''
+                    this.player.team = ''
+                    this.player.imageUrl = null
+                    setTimeout(()=>{
+                        this.error = false
+                        this.errorMsg = ''
+                        this.loading = false
+                        this.disabled = false
+                    },2000)
+                    console.log(response);
+                })
+                .catch((error)=>{
+                    this.$swal({
+                    icon:'error',
+                    title: 'Failed',
+                    text:error.response.data.error,
+                    })
+                    setTimeout(()=>{
+                        this.error = false
+                        this.errorMsg = ''
+                        this.loading = false
+                        this.disabled = false
+                    },2000)
+                })
+
+            },
             removeModal(){
                 this.isShowModal = false
             }
@@ -159,7 +262,6 @@
     }
     .register-part {
         height: 100vh;
-    
         flex-direction: column;
     
         .register-holder {
@@ -196,6 +298,9 @@
             height: inherit;
             &:focus {
             border-color: #279843;
+            }
+            option:hover{
+                background-color: #279843 !important;
             }
         }
         input{
@@ -264,7 +369,6 @@
 
         .modal-content{
             width: 70%;
-            
             padding: 30px;
             border-radius: 10px;
             background-color: #fff;
@@ -282,9 +386,13 @@
 
     @media (max-width:900px){
         .modal-content{
-            height: 100vh;
+            // height: 100vh;
             width:100% !important;
             padding: 30px 10px !important;
+        }
+
+        .form{
+            height: 90%;
         }
     }
     

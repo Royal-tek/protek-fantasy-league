@@ -24,12 +24,10 @@ const PlayerSchema = new Schema({
     },
     team : {
         type : mongoose.Schema.Types.ObjectId,
-        ref : 'Team'
+        ref : 'Team',
+        required : true
     },
-    coach : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : 'Coach'
-    },
+
     position : {
         type : String,
         enum : ['attacker', 'midfielder', 'defender', 'goalkeeper'],
@@ -37,14 +35,7 @@ const PlayerSchema = new Schema({
         lowercase : true
 
     },
-    weekly_points : {
-        type : Number,
-        default : 0
-    },
-    total_points : {
-        type : Number,
-        default : 0
-    },
+    
     approved : {
         type : Boolean,
         default : false
@@ -54,6 +45,9 @@ const PlayerSchema = new Schema({
     }
 })
 
-//  REMEMBER TO ADD PLAYER IMAGE
+
 
 module.exports = mongoose.model('Player', PlayerSchema)
+
+
+// REMEMBER TO ADD WEEK MODEL AND POINT MODEL

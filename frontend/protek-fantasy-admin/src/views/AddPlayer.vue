@@ -1,263 +1,123 @@
 <template>
   <div>
+    <div>
     <main id="main" class="main">
 
 <div class="pagetitle">
-    <h1>Dashboard</h1>
-    <nav>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item active">Dashboard</li>
-      </ol>
-    </nav>
+    <h1>PLAYERS</h1>
+    
   </div><!-- End Page Title -->
 
 <section class="section dashboard">
     <div class="row">
         <!-- Left side columns -->
-    <div class="col-lg-8">
+    <div class="col-lg-12">
         <div class="row">
-
-          <!-- Sales Card -->
-          <div class="col-xxl-4 col-md-6">
-            <div class="card info-card sales-card">
-
-              <div class="filter">
-                <!-- <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a> -->
-               
-              </div>
-
-              <div class="card-body">
-                <h5 class="card-title">Daily Receive</h5>
-
-                <div class="d-flex align-items-center">
-                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-currency-dollar"></i>
-                  </div>
-                  <div class="ps-3">
-                    <h6>0 USDT</h6>
-                    <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div><!-- End Sales Card -->
-
-          <!-- Revenue Card -->
-          <div class="col-xxl-4 col-md-6">
-            <div class="card info-card revenue-card">
-
-              <div class="filter">
-                <!-- <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a> -->
-                
-              </div>
-
-              <div class="card-body">
-                <h5 class="card-title">Available Balance</h5>
-
-                <div class="d-flex align-items-center">
-                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-currency-dollar"></i>
-                  </div>
-                  <div class="ps-3">
-                    <h6>0 USDT</h6>
-                    <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div><!-- End Revenue Card -->
-
-          <!-- Customers Card -->
-          <div class="col-xxl-4 col-xl-12">
-
-            <div class="card info-card customers-card">
-
-              <div class="filter">
-               
-              </div>
-
-              <div class="card-body">
-                <h5 class="card-title">Monthly Receive</h5>
-
-                <div class="d-flex align-items-center">
-                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-currency-dollar"></i>
-                  </div>
-                  <div class="ps-3">
-                    <h6>0 USDT</h6>
-                    <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          </div><!-- End Customers Card -->
 
           <!-- Reports -->
           <div class="col-12">
             <div class="card">
 
-              <div class="filter">
-                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <li class="dropdown-header text-start">
-                    <h6>Filter</h6>
-                  </li>
-
-                  <li><a class="dropdown-item" href="#">Today</a></li>
-                  <li><a class="dropdown-item" href="#">This Month</a></li>
-                  <li><a class="dropdown-item" href="#">This Year</a></li>
-                </ul>
-              </div>
-
+            
               <div class="card-body">
-                <h5 class="card-title">Reports <span>/Today</span></h5>
+                
+                <h3 class="card-title text-center" style="color:#172b3b; font-size: 25px;">Add Player</h3>
+                
+                <div class="register-holder">
+                <form class="form" enctype="multipart/form-data">
+                  
+                <div class="form-group">
+                    <input
+                    v-model="player.firstname"
+                    type="text"
+                    class="form-control shadow-none"
+                    placeholder="Firstname"
+                    />
+                </div>
+                <div class="form-group">
+                    <input
+                    v-model="player.lastname"
+                    type="text"
+                    class="form-control shadow-none"
+                    placeholder="Lastname"
+                    />
+                </div>
+                <div class="form-group">
+                    <input
+                    v-model="player.displayName"
+                    type="text"
+                    class="form-control shadow-none"
+                    placeholder="Display Name"
+                    
+                    />
+                </div>
+    
+                <div class="form-group">
+                    <input
+                    v-model="player.number"
+                    type="number"
+                    class="form-control shadow-none"
+                    placeholder="Number"
+                    />
+                </div>
 
-                <!-- Line Chart -->
-                <div id="reportsChart"></div>
-                <p style="font-weight: bold;">YOUR  GRAPH CAN GO HERE!!!</p>
-                <div class="btcwdgt-chart" bw-cash="true" bw-noshadow="true"></div>
+                
+    
+                <div class="form-group">
+                    <select class="form-select shadow-none" v-model="player.team">
+                        <option value="">Select Team</option>
+                        <option ></option>
+                    </select>
+                </div>
+
+                
+
+                <div class="form-group">
+                    <select class="form-select shadow-none" v-model="player.position">
+                        <option value="">Select Position</option>
+                        <option value="attacker">Attacker</option>
+                        <option value="midfielder">Midfielder</option>
+                        <option value="defender">Defender</option>
+                        <option value="goalkeeper">Goalkeeper</option>
+                    </select>
+                </div>
+                
 
 
-               
-                <!-- End Line Chart -->
 
+                <div class="form-group" style="margin:0 0 50px">
+                    
+                    <label for="" style=" width:100%">
+                    <input
+                    @change="addImage"                  
+                    type="file"
+                    class="form-control shadow-none "
+                    accept="image/*"
+                    />
+                </label>
+                </div>
+    
+                <div class="form-group">
+                    <button  @click.prevent="playerReg" class="btn register-btn w-100 shadow-none">
+                    <!-- <span v-if="loading"><img class="img-fluid me-1" style="height: 15px;" src="../../public/assets/images/loading.gif" alt=""></span> -->
+                    Submit</button>
+                </div>
+                <!-- <p v-if="error" class="p-3 text-center" style="background-color: #FFCCCB; color: black;">{{ errorMsg }}</p> -->
+    
+                </form>
+            </div>
+                
+                
               </div>
 
             </div>
           </div><!-- End Reports -->
 
-          <!-- Recent Sales -->
-          <div class="col-12">
-            <div class="card recent-sales overflow-auto">
-
-             
-
-             
-
-            </div>
-          </div><!-- End Recent Sales -->
-
-    
 
         </div>
       </div><!-- End Left side columns -->
 
-     <!-- Right side columns -->
-     <div class="col-lg-4">
-
-      <!-- Recent Activity -->
-      <div class="card">
-        <div class="filter">
-          <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-            <li class="dropdown-header text-start">
-              <h6>Filter</h6>
-            </li>
-
-            <li><a class="dropdown-item" href="#">Today</a></li>
-            <li><a class="dropdown-item" href="#">This Month</a></li>
-            <li><a class="dropdown-item" href="#">This Year</a></li>
-          </ul>
-        </div>
-
-        <div class="card-body">
-          <h5 class="card-title">Recent Activity <span>| Today</span></h5>
-
-          <div class="activity">
-
-            
-
-            
-
-          </div>
-
-        </div>
-      </div><!-- End Recent Activity -->
-
-      <!-- Budget Report -->
-      <div class="card">
-        <div class="filter">
-          
-        </div>
-
-        <div class="card-body pb-0">
-          <h5 class="card-title">Trade History and Report </h5>
-
-          <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
-
-          
-
-        </div>
-      </div><!-- End Budget Report -->
-
-      <!-- Website Traffic -->
-      <div class="card">
-        <div class="filter">
-          
-        </div>
-
-        <div class="card-body pb-0">
-          <h5 class="card-title text-uppercase">Investment Traffic </h5>
-
-          <div id="trafficChart"  class="echart">
-            <p>Overall Growth -> 80.40</p>
-            <p>Monthly Growth -> 30.40</p>
-            <p>Daily Growth -> 7.40</p>
-          </div>
-
-
-        </div>
-      </div><!-- End Website Traffic -->
-
-       <!-- Website Traffic -->
-       <div class="card">
-        <div class="filter">
-          
-        </div>
-
-        <div class="card-body pb-0">
-          <h5 class="card-title text-uppercase">Deposite Traffic </h5>
-
-          <div id="trafficChart" class="echart">
-            <p>Overall Growth -> 80.40</p>
-            <p>Monthly Growth -> 30.40</p>
-            <p>Daily Growth -> 7.40</p>
-          </div>
-
-
-        </div>
-      </div><!-- End Website Traffic -->
-
-       <!-- Website Traffic -->
-       <div class="card">
-        <div class="filter">
-          
-        </div>
-
-        <div class="card-body pb-0">
-          <h5 class="card-title text-uppercase">Bonus Traffic </h5>
-
-          <div id="trafficChart" class="echart">
-            <p>Overall Growth -> 80.40</p>
-            <p>Monthly Growth -> 30.40</p>
-            <p>Daily Growth -> 7.40</p>
-          </div>
-
-
-        </div>
-      </div><!-- End Website Traffic -->
-
-    
-
-    </div><!-- End Right side columns -->
+   
     </div>
 
 </section>
@@ -265,14 +125,91 @@
 
     </main>
   </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name : 'AddPlayer'
+    name : 'AddPlayer',
+    data(){
+      return {
+        player : {
+                    firstname : '',
+                    lastname : '',
+                    displayName : '',
+                    coach : '',
+                    team : '',
+                    number : '',
+                    position : '',
+                    imageUrl : null,
+                },
+      }
+    }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
+
+.register-holder{
+  width: 70%;
+  margin: 0 auto;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 30px;
+  height: 600px;
+
+  .form-group{
+    height: 50px;
+
+    input{
+      height: inherit;
+    }
+  }
+}
+.form-group {
+        height: 40px;
+        width: 100%;
+        margin: 15px 0;
+        // padding: 20px 0;
+    
+        .register-btn {
+            height: 40px;
+            background-color: #172b3b;
+            color: #fff;
+    
+            &:hover {
+            background-color: #021729;
+            transition: 0.6s;
+            }
+        }
+        select{
+            height: inherit;
+            &:focus {
+            border-color: #172b3b;
+            }
+            option:hover{
+                background-color: #172b3b !important;
+            }
+        }
+        input{
+            padding: 20px;
+            width: 100%;
+    
+            height: inherit !important;
+    
+            &:focus {
+            &::placeholder {
+                color: transparent !important;
+                transition: 1s;
+            }
+            background-color: transparent;
+            }
+    
+            &:focus {
+            border-color: #172b3b;
+            }
+        }
+       
+        }
+    
 </style>

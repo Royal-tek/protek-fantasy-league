@@ -1,67 +1,65 @@
 const Player = require('../models/Player')
-const Coach = require('../models/Coach')
 const Team = require('../models/Teams')
 const formidable = require('formidable')
-const cloudinary = require('cloudinary').v2
+const cloudinary = require('../utils/cloudinary')
 
 const form = formidable({ multiples : true })
 
 exports.createPlayer = async(req, res, next)=>{
     try {
         
-        form.parse(req,  (err, fields, files)=>{
+        form.parse(req,  async (err, fields, files)=>{
 
             if(err){
                 next(err)
                 return
             }
-            const result =  cloudinary.uploader.upload(files.image.filepath, {
+
+            const {displayName, team, ...others } = fields
+            const { imageUrl } = files
+            const checkTeam = await Team.findById(team)
+            if(!checkTeam) return res.status(400).json({
+                error : "Player cannot be in assigned to a  team that does not exist"
+            })
+        
+            const checkDisplayName = await Player.findOne({ displayName : displayName})
+            if(checkDisplayName) return res.status(400).json({
+                error : "That display name has been taken"
+            })
+
+        
+            let image = ''
+            
+            if(files.imageUrl){
+            const data = await cloudinary.uploader.upload(files.imageUrl.filepath, {
                 width : 400,
                 height : 400,
                 crop : 'fill'
+            }, (error)=>{
+                if(error){
+                    console.log(error)
+                    return
+                }
+
             })
-            result.then((data)=>{
-                console.log(data)
-            })
-            .catch((err)=>{
-                console.log(err)
-            })
+            image = data.secure_url
+        }
+
+        
+        const player = new Player({
+            displayName,
+            team,
+            imageUrl : image,
+            ...others
             
         })
 
-        
-        
-        
+        await player.save()
+        res.status(201).json(player)
+        })
 
         
-        // const {displayName, team, coach, ...others } = req.body
-        // const checkTeam = await Team.findById(team)
-        // if(!checkTeam) return res.status(400).json({
-        //     error : "Player cannot be in assigned to a  team that does not exist"
-        // })
-        // const checkCoach = await Coach.findById(coach)
-        // if(!checkCoach) return res.status(400).json({
-        //     error : "Player cannot be assigned to a coach that does not exist"
-        // })
-        // const checkDisplayName = await Player.findOne({ displayName : displayName})
-        // if(checkDisplayName) return res.status(400).json({
-        //     error : "That display name has been taken"
-        // })
-
-        // const player = new Player({
-        //     displayName,
-        //     team,
-        //     coach,
-        //     ...others
-            
-        // })
-
-        
-
-        // await player.save()
-        // res.status(201).json(player)
     } catch (error) {
-        console.log('kmkmkmkm')
         res.status(500).json(error)
     }
 }
@@ -102,18 +100,43 @@ exports.editPlayer = async(req, res)=>{
 exports.getPlayers = async(req, res)=>{
     try {
         const players = await Player.find().populate('team')
-        .populate({
-            path: 'coach',
-            populate: { path: 'user'}
-        })
-        .populate({
-            path: 'coach',
-            populate: { path: 'team'}
-        })
+        
+        
 
         res.status(200).json(players)
     } catch (error) {
         console.log(error)
         res.status(500).json(error)
+    }
+}
+
+exports.approvePlayer = async (req, res)=>{
+    try {
+        const {id} = req.params
+        const player = await Player.findById(id)
+
+        if(!player) return res.status(400).json({
+            error : "Player not found"
+        })
+
+        if(player.approved == true) return res.status(400).json({
+            error : 'Player is already approved'
+        })
+
+        const approvePlayer = await Player.findByIdAndUpdate({ _id : id}, {
+            approved : true
+        }, 
+        {
+            new : true
+        }
+        )
+
+        res.status(200).json({
+            message : "Player has been approved"
+        })
+
+    } catch (error) {
+        res.status(500).json(error)
+        console.log(error)
     }
 }

@@ -43,8 +43,8 @@ export default createStore({
         })
 
         context.commit('setToken', response)
-        
-        window.location = '/'
+        console.log(response);
+        // window.location = '/'
        
         
       } catch (error) {
